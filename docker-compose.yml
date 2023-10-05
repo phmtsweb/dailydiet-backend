@@ -5,11 +5,11 @@ services:
     container_name: dailydiet-pg
     image: postgres
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=docker
       - POSTGRES_DB=dailydiet
-      - PGDATA= /data/postgres
+      - PGDATA=/data/postgres
     volumes:
       - ./data/pg:/data/postgres

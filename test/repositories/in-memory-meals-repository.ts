@@ -11,6 +11,20 @@ export class InMemoryMealsRepository extends MealsRepository {
     const mealsInOrder = this.meals.sort((a, b) =>
       dayjs(b.eatenAt).diff(a.eatenAt, 'ms'),
     )
+
+    let streak = 0
+    let bestStreak = 0
+    for (const meal of mealsInOrder) {
+      if (meal.userId === userId && meal.isInDiet) {
+        streak++
+      } else {
+        streak = 0
+      }
+      if (streak > bestStreak) {
+        bestStreak = streak
+      }
+    }
+    return bestStreak
   }
 
   async getByUserId(
@@ -87,7 +101,6 @@ export class InMemoryMealsRepository extends MealsRepository {
   }
 
   async fetch({ page, limit }: { page: 1; limit: 10 }): Promise<Meal[]> {
-    const meals = this.meals.slice((page - 1) * limit, page * limit)
-    return meals
+    return this.meals.slice((page - 1) * limit, page * limit)
   }
 }

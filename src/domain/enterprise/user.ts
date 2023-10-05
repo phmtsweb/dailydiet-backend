@@ -15,11 +15,10 @@ export class User extends Entity<UserProps> {
   public static create(
     props: Optional<EntityProps<UserProps>, 'id' | 'createdAt' | 'updatedAt'>,
   ) {
-    const user = new User({
+    return new User({
       ...props,
       createdAt: props.createdAt ?? new Date(),
     })
-    return user
   }
 
   get name() {

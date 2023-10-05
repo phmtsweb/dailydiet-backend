@@ -13,7 +13,7 @@ describe('Fetch Meals By User Id Use Case', () => {
     sut = new FetchMealsByUserId(mealsRepository)
   })
 
-  it('should updata a meal', async () => {
+  it('should update a meal', async () => {
     const user = await usersRepository.create({
       name: 'any_name',
       email: 'any_email@mail.com',
@@ -54,6 +54,7 @@ describe('Fetch Meals By User Id Use Case', () => {
 
     const response = await sut.execute({
       userId: user.id,
+      options: { page: 1, limit: 10 },
     })
 
     expect(response.isRight()).toBeTruthy()

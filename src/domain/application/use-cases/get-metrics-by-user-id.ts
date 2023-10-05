@@ -28,17 +28,19 @@ export class GetMetricsByUserId extends UseCase<
     userId,
   }: GetMetricsByUserIdRequest): Promise<GetMetricsByUserIdResponse> {
     const amountOfMeals = await this.mealsRepository.countByUserId(userId)
-    const amountOfMealsInDiet = await this.mealsRepository.countInDietsByUserId(
-      userId,
-    )
+    const amountOfMealsInDiet =
+      await this.mealsRepository.countInDietsByUserId(userId)
     const amountOfMealsOutOfDiet =
       await this.mealsRepository.countOutOfDietsByUserId(userId)
+
+    const bestStreak =
+      await this.mealsRepository.countStrictlyInDietsByUserId(userId)
 
     return right({
       amountOfMeals,
       amountOfMealsInDiet,
       amountOfMealsOutOfDiet,
-      bestStreak: 0,
+      bestStreak,
     })
   }
 }
